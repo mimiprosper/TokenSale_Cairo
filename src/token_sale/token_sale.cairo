@@ -38,6 +38,8 @@ mod TokenSale {
         fn mint(ref self: ContractState, amount: u256) {
             let caller = get_caller_address();
             assert(caller.is_non_zero(), 'Zero address caller');
+            // calller is the owner
+            assert(caller == owner, Errors::NOT_OWNER);
 
             self.erc20.mint(caller, amount);
         }
